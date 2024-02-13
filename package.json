@@ -2,7 +2,7 @@
   "scripts": {
     "prestart": "tsc -w",
     "start": "nodemon dist/server.js",
-    "dev": "nodemon src/server.ts"
+    "dev": "nodemon server.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
