@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { Transporter } from 'nodemailer';
 import { MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM, MAIL_TO } from '../../config/mail';
 
 class Mail {
@@ -29,7 +29,7 @@ class Mail {
                 text: this.emailBody()
             };
 
-            const transporter = nodemailer.createTransport({
+            const transporter: Transporter = nodemailer.createTransport({
                 host: MAIL_HOST,
                 port: MAIL_PORT,
                 auth: {
