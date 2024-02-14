@@ -6,13 +6,13 @@ import Mail from './Services/Mail';
 class App {
     public express: Express;
 
-    constructor() {
+    public constructor() {
         this.express = express();
         this.express.use(express.json());
         this.routes();
     }
 
-    routes(): void {
+    public routes(): void {
         this.express.route('/send').post(
             validationMiddleware,
             (req: Request, res: Response) => {
