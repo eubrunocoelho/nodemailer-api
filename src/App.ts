@@ -2,7 +2,6 @@ import express, { Express, Request, Response } from 'express';
 import validationMiddleware from './Middlewares/validationMiddleware';
 import { validationResult } from 'express-validator';
 import Mail from './Services/Mail';
-import Configs from '../Configs/Configs';
 
 class App {
     public express: Express;
@@ -25,15 +24,10 @@ class App {
 
                 const { name, phone, email, subject, message } = req.body;
 
-                Mail.name = name;
-                Mail.phone = phone;
-                Mail.email = email;
-                Mail.subject = subject;
-                Mail.message = message;
+                const mailInstance = new Mail(name, phone, email, subject, message);
+                const result = mailInstance.sendMail();
 
-                let result = Mail.sendMail();
-
-                res.json({ 'result': result });
+                res.json({ result: result });
             });
     }
 }

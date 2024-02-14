@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
-import Configs from '../../Configs/Configs';
+import { MAIL_HOST, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD, MAIL_FROM, MAIL_TO } from '../../config/mail';
 
 class Mail {
-    constructor(
+    public constructor(
         public name?: string,
         public phone?: string,
         public email?: string,
@@ -10,37 +10,39 @@ class Mail {
         public message?: string
     ) { }
 
-    sendMail() {
-        let mailOptions = {
-            from: Configs.mailFrom,
-            to: Configs.mailTo,
-            subject: `${this.name} - ${this.subject}`,
-            text: `
+    private emailBody() {
+        return `
             Nome: ${this.name}
             Telefone/WhatsApp: ${this.phone}
             E-mail: ${this.email}
             Assunto: ${this.subject}
             Mensagem: ${this.message}
-            `
+        `;
+    }
+
+    public async sendMail() {
+        let mailOptions = {
+            from: MAIL_FROM,
+            to: MAIL_TO,
+            subject: this.subject,
+            text: this.emailBody()
         };
 
         const transporter = nodemailer.createTransport({
-            host: Configs.mailHost,
-            port: Configs.mailPort,
+            host: MAIL_HOST,
+            port: MAIL_PORT,
             auth: {
-                user: Configs.mailUsername,
-                pass: Configs.mailPassword
+                user: MAIL_USERNAME,
+                pass: MAIL_PASSWORD
             }
         });
 
-        transporter.sendMail(mailOptions, (error) => {
-            if (error) {
-                return error;
-            } else {
-                return 'Success';
-            }
+        await transporter.sendMail(mailOptions, (error) => {
+            // tratar
+            if (!error) return 'success';
+            else return 'error';
         });
     }
 }
 
-export default new Mail;
+export default Mail;
