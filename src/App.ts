@@ -25,9 +25,13 @@ class App {
                 const { name, phone, email, subject, message } = req.body;
 
                 const mailInstance = new Mail(name, phone, email, subject, message);
-                const result = mailInstance.sendMail();
-
-                res.json({ result: result });
+                mailInstance.sendMail()
+                    .then((result) => {
+                        res.status(200).json({ status: 'Your email has been sent successfully.' });
+                    })
+                    .catch((error) => {
+                        res.status(500).json({ error });
+                    });
             });
     }
 }
