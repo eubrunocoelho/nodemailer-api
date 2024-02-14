@@ -10,7 +10,7 @@ class Mail {
         public message?: string
     ) { }
 
-    private emailBody() {
+    private emailBody(): string {
         return `
             Nome: ${this.name}
             Telefone/WhatsApp: ${this.phone}
@@ -20,27 +20,27 @@ class Mail {
         `;
     }
 
-    public async sendMail() {
-        let mailOptions = {
-            from: MAIL_FROM,
-            to: MAIL_TO,
-            subject: this.subject,
-            text: this.emailBody()
-        };
+    public async sendMail(): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            let mailOptions = {
+                from: MAIL_FROM,
+                to: MAIL_TO,
+                subject: this.subject,
+                text: this.emailBody()
+            };
 
-        const transporter = nodemailer.createTransport({
-            host: MAIL_HOST,
-            port: MAIL_PORT,
-            auth: {
-                user: MAIL_USERNAME,
-                pass: MAIL_PASSWORD
-            }
-        });
+            const transporter = nodemailer.createTransport({
+                host: MAIL_HOST,
+                port: MAIL_PORT,
+                auth: {
+                    user: MAIL_USERNAME,
+                    pass: MAIL_PASSWORD
+                }
+            });
 
-        await transporter.sendMail(mailOptions, (error) => {
-            // tratar
-            if (!error) return 'success';
-            else return 'error';
+            transporter.sendMail(mailOptions, (error) => {
+                return (!error) ? resolve(true) : reject(false);
+            });
         });
     }
 }
