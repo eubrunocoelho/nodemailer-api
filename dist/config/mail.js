@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MAIL_TO = exports.MAIL_FROM = exports.MAIL_PASSWORD = exports.MAIL_USERNAME = exports.MAIL_PORT = exports.MAIL_HOST = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const MAIL_HOST = process.env.MAIL_HOST;
+exports.MAIL_HOST = MAIL_HOST;
+const MAIL_PORT = parseInt(process.env.MAIL_PORT);
+exports.MAIL_PORT = MAIL_PORT;
+const MAIL_USERNAME = process.env.MAIL_USERNAME;
+exports.MAIL_USERNAME = MAIL_USERNAME;
+const MAIL_PASSWORD = process.env.MAIL_PASSWORD;
+exports.MAIL_PASSWORD = MAIL_PASSWORD;
+const MAIL_FROM = process.env.MAIL_FROM;
+exports.MAIL_FROM = MAIL_FROM;
+const MAIL_TO = process.env.MAIL_TO;
+exports.MAIL_TO = MAIL_TO;
