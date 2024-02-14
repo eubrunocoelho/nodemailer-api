@@ -22,7 +22,7 @@ class Mail {
 
     public async sendMail(): Promise<boolean> {
         return new Promise((resolve, reject) => {
-            let mailOptions = {
+            let mailOptions: Object = {
                 from: MAIL_FROM,
                 to: MAIL_TO,
                 subject: this.subject,
