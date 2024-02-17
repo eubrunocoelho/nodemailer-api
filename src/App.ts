@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors';
 import validationMiddleware from './Middlewares/validationMiddleware';
 import { validationResult } from 'express-validator';
 import Mail from './Services/Mail';
@@ -8,7 +9,7 @@ class App {
 
     public constructor() {
         this.express = express();
-        this.express = require('cors')();
+        this.express.use(cors());
         this.express.use(express.json());
         this.routes();
     }
