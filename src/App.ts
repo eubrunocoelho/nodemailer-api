@@ -8,6 +8,7 @@ class App {
 
     public constructor() {
         this.express = express();
+        this.express = require('cors')();
         this.express.use(express.json());
         this.routes();
     }
